@@ -1,0 +1,12 @@
+body { font-family: system-ui, Arial; margin: 0; background: #0b0d10; color: #e8eef5; }
+#app { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; padding: 16px; }
+canvas { border-radius: 12px; background: #141821; display: block; width: 100%; height: auto; }
+.hud { margin-top: 10px; display: flex; gap: 16px; opacity: 0.95; }
+.right { background: #111521; border-radius: 12px; padding: 14px; }
+.panel { display: grid; gap: 10px; }
+.card { background: #0f1420; border: 1px solid #243044; border-radius: 12px; padding: 12px; }
+button { cursor: pointer; border: 0; border-radius: 10px; padding: 10px 12px; background: #2a67ff; color: white; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+.small { opacity: 0.8; font-size: 0.92rem; }
+.row { display: flex; justify-content: space-between; gap: 12px; }
+hr { border: 0; border-top: 1px solid #243044; margin: 8px 0; }
