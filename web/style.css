@@ -1,12 +1,222 @@
+/*
 body { font-family: system-ui, Arial; margin: 0; background: #0b0d10; color: #e8eef5; }
-#app { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; padding: 16px; }
+#app { display: flex; justify-content: center; align-items: center;  min-height: 100vh; min-width:100vh ; }
 canvas { border-radius: 12px; background: #141821; display: block; width: 100%; height: auto; }
 .hud { margin-top: 10px; display: flex; gap: 16px; opacity: 0.95; }
-.right { background: #111521; border-radius: 12px; padding: 14px; }
-.panel { display: grid; gap: 10px; }
+.center div {display: flex; justify-content: flex-end;  margin-bottom:100px ;}
 .card { background: #0f1420; border: 1px solid #243044; border-radius: 12px; padding: 12px; }
-button { cursor: pointer; border: 0; border-radius: 10px; padding: 10px 12px; background: #2a67ff; color: white; }
+button { cursor: pointer; border: 0; border-radius: 20px; padding: 30px 30px; background: #2a67ff; color: white; }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
 .small { opacity: 0.8; font-size: 0.92rem; }
 .row { display: flex; justify-content: space-between; gap: 12px; }
 hr { border: 0; border-top: 1px solid #243044; margin: 8px 0; }
+#map {
+  width: 90vw;      
+  height: auto;     
+  max-width: 1175px; 
+  aspect-ratio: 1175 / 600; 
+  display: block;
+  margin: 0 auto;
+  border: 1px solid #333; 
+}*/
+
+body{
+    margin:0;
+    font-family:system-ui, Arial;
+    background:#0b0d10;
+    color:#e8eef5;
+}
+
+
+/* START SCREEN */
+
+#startScreen{
+    height:100vh;
+    background-image:url("images/normal_house.webp");
+    background-size:cover;
+    background-position:center;
+    text-align:center;
+    padding-top:100px;
+}
+
+#gameName{
+    color:#69863a;
+    background:#eecda81a;
+    font-size:4rem;
+}
+
+#councilBudget{
+    color:#ffffff;
+    background:#0c417e57;
+    max-width:250px;
+    font-size:1.25rem;
+}
+
+#houseBudget{
+    color:#ffffff;
+    background:#5c370c73;
+    max-width:250px;
+    font-size:1.25rem;
+}
+.gameDescription{
+    font-size:1.4rem;
+    max-width:700px;
+    margin:40px auto;
+    background:#eecda886;
+    color:black;
+    padding:20px;
+    border-radius:10px;
+}
+
+.startButton{
+    padding:15px 40px;
+    font-size:1.8rem;
+    border:none;
+    border-radius:20px;
+    background:#4b2807;
+    color:white;
+    cursor:pointer;
+}
+
+.startButton:hover{
+    background:#633a14;
+}
+
+
+/* GAME LAYOUT */
+
+#game{
+    width:100%;
+}
+
+#scenery{
+    width:100%;
+    height:70vh;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    position:relative;
+}
+
+/*Clickable areas of the background*/
+.clickHere{
+    position:absolute;
+    cursor: pointer;
+}
+
+.clickHere:hover{
+    border: 2px solid #c4a20d8f;
+}
+
+/* UI AREA */
+
+#ui{
+    padding:10px;
+}
+
+
+/* DIALOGUE BOX */
+
+#dialogueBox{
+    width:80%;
+    margin:auto;
+    background:#000000bf;
+    padding:20px;
+    border-radius:10px;
+    font-size:1.4rem;
+}
+
+#clickable{
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+}
+
+.popup{
+    visibility: hidden;
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000099;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup.show{
+    visibility: visible;
+    animation: fadeIn 0.3s;
+}
+
+.popupBox{
+    background: #ffffff;
+    color: #000000;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 500px;
+    text-align: center;
+}
+
+.popupBox button{
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none; 
+    border-radius: 8px;
+    background: #69863a;
+    color: #e8eef5;
+    cursor: pointer;
+}
+
+.popupBox button:hover{
+    background: #2f3a1d;
+}
+/* NEXT BUTTON */
+
+.nextButton{
+    display:block;
+    margin:8px auto;
+    margin-right: 30px;
+    padding:12px 30px;
+    font-size:1.2rem;
+    border:none;
+    border-radius:10px;
+    background:#69863a;
+    color:white;
+    cursor:pointer;
+}
+
+.nextButton:hover{
+    background:#2f3a1d;
+}
+
+
+/* CHOICE BUTTONS */
+
+#choices{
+    text-align:center;
+}
+
+#choices button{
+    margin:10px;
+    padding:10px 20px;
+    font-size:1rem;
+    border:none;
+    border-radius:10px;
+    background:#4b2807;
+    color:white;
+    cursor:pointer;
+}
+
+#choices button:hover{
+    background:#633a14;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
