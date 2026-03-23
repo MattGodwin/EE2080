@@ -89,10 +89,11 @@ body{
 .clickHere{
     position:absolute;
     cursor: pointer;
+    border: 2px dashed #0dc4818f;
 }
 
 .clickHere:hover{
-    border: 2px solid #c4a20d8f;
+    border: 2px solid #c40d0d8f;
 }
 
 /* UI AREA */

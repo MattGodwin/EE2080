@@ -1,76 +1,76 @@
+/* Dark theme base */
+:root {
+    color-scheme: dark;
+    --bg: #0f1720;
+    --surface: #1a2533;
+    --surface-2: #253245;
+    --border: #394760;
+    --text: #e3edf7;
+    --muted: #9aacbf;
+    --accent: #61a1ff;
+    --accent-strong: #4e8dee;
+    --success: #53dbb7;
+    --warning: #ffb463;
+    --danger: #f06f88;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    color: #717173;
-    background-color: #E6E7E8;
     margin: 0;
-    padding: 20pt;
+    padding: 20px;
+    min-height: 100vh;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    color: var(--text);
+    background: radial-gradient(circle at top, #162133 0%, var(--bg) 70%);
+    line-height: 1.5;
 }
-h1 {   
-    color: #164578;
-    font-size: 26pt;
+
+html, body {
+    height: 100%;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
     font-weight: 700;
+    color: #cbdcf3;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .45);
     text-align: center;
 }
+
+h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    text-align: center;
+    padding: 0.75rem 1rem;
+}
+
 h2 {
-    color: #3B86FF;
-    font-weight: 700;
-    font-size: 24pt;
+    font-size: clamp(1.35rem, 3.5vw, 2rem);
+    color: var(--accent);
+}
+
+p, li {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: var(--muted);
+    text-align: center;
 }
 
 p {
     text-align: center;
-    font-size: 14pt;
 }
+
 a {
+    color: var(--accent);
     text-decoration: none;
-}
-
-button {
-    background-color: #164578;
-    color: white;
-    padding: 20px 40px;
-    font-size: 18pt;
-    border: none;
-    cursor: pointer;
-    border-radius: 25pt;
-    margin: auto;
-    margin-top: 50px;
-    display: block;
-    
-}
-
-.options {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-}
-
-.options p {
-    margin: auto;
-    display: block;
-    padding: 10pt;
-}
-
-.options img {
-    margin: auto;
-    display: block;
-    width: 300pt;
-    height: 300pt;
-    border-radius: 25pt;
-    padding: 10pt;
-}
-
-button:hover {
-    background-color: #3B86FF;
-}
-
-footer {
-    margin-top: 20px;
     text-align: center;
-    color: #717173;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
+}
+
+ul {
+    list-style: inside disc;
+    padding-left: 1rem;
+    margin: 0 0 1.2rem 0;
+    color: var(--muted);
+    text-align: center;
+}
+
+li {
+    margin: 0.25rem 0;
 }
