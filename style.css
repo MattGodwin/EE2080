@@ -4,16 +4,18 @@
 body{
     margin:0;
     font-family:system-ui, Arial;
-    background:#0b0d10;
+    background:hsl(216, 19%, 5%);
     color:#e8eef5;
+    overflow: hidden;
 }
 
 
 /* START SCREEN */
 
 #startScreen{
-    height:100vh;
-    background-image:url("images/normal_house.webp");
+    width:100vw;
+    height: 100vh;
+    background-image:url("images/normal_house2.png");
     background-size:cover;
     background-position:center;
     text-align:center;
@@ -21,8 +23,12 @@ body{
 }
 
 #gameName{
+    width: fit-content;
+    margin: auto;
+    border-radius: 25pt;
+    padding: 5px;
     color:#69863a;
-    background:#eecda81a;
+    background:#eecda882;
     font-size:4rem;
 }
 

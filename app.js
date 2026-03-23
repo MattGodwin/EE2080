@@ -119,7 +119,7 @@ const scenes={
     image: "./images/council_office.webp", 
     dialogue:[ {text:"TWO MONTHS EARLIER", speaker:""},
     {text: "It's about to be a busy month at work.", speaker:"Council Worker"}, 
-    {text: "It's that time again where the govenrment policies have been reviewed and the funding reassesed", speaker:"Council Worker"}, 
+    {text: "It's that time again where the government policies have been reviewed and the funding reassessed", speaker:"Council Worker"}, 
     {text: "*sigh* I wonder how the change will affect us this time.", speaker:"Council Worker", choices:[{text:"*PING*", next:"councilOffice2"}]}],
     clickables:[{x:35, y:35, width:29, height:28, action:"computer brochure"} ]
   },
@@ -131,9 +131,9 @@ const scenes={
      {text: "It seems they've now changed the 'Social Housing Decarbonisation Fund' to the 'Warm Homes: Social Housing Fund'", speaker:"Council Worker"}, 
      {text: "They also confirmed an available fund of £1.29 billion for local authorities, housing associations and other housing providers to carry out retrofitting, focused on 'fabric first' approaches.", speaker:"Council Worker"},
      {text: "To qualify the properties must be below EPC C rating with exceptions made if approved low carbon heating methods are being installed.", speaker:"Council Worker"},
-     {text: "It also says funding request amounts wont be guaranteed if the scheme is oversubscribed ", speaker:"Council Worker"},
-     {text: "if that's the case, we should start assesing our properties and creating upgrade plans.", speaker:"Council Worker"},
-     {text: "The sooner we submit our bid for funding the better!", speaker:"Council Worker", choices:[{text:"Back to presnet day", next:"councilOffice3"}] }   ],
+     {text: "It also says funding request amounts won't be guaranteed if the scheme is oversubscribed ", speaker:"Council Worker"},
+     {text: "If that's the case, we should start assessing our properties and creating upgrade plans.", speaker:"Council Worker"},
+     {text: "The sooner we submit our bid for funding the better!", speaker:"Council Worker", choices:[{text:"Back to present day", next:"councilOffice3"}] }   ],
     clickables:[{x:75, y:12, width:20, height:30, action:"to be added"}, {x:5, y:56, width:17, height:12, action:"something else"}, ]
   }, 
   councilOffice3:{
@@ -150,14 +150,14 @@ const scenes={
     {text: "so before I can give you any specific information, we would need to have an independent assessor attend to your home.", speaker:"Council Worker"},
     {text: "This wouldn't require much from you, we would just need to access the property for approximately an hour, and the assesor would have a look at the structure and materials of your house", speaker:"Council Worker"}, 
     {text: "Once that assesment has been done, we can discuss more specifics and moving forward once you are comfortable.", speaker:"Council Worker"}, 
-    {text: "I dont know about all these changes, but if you come when noone is around and don't get in the way, I'll let you and your contractor come see the property", speaker:"Council Tenant",
+    {text: "I don't know about all these changes, but if you come when no one is around and don't get in the way, I'll let you and your contractor come see the property", speaker:"Council Tenant",
       choices:[{text:"Visit the property with an Independent Assessor", next:"outsideHome"}]}],
     clickables:[{x:35, y:35, width:29, height:28, action:"computer brochure"} ]
   }, 
   outsideHome:{
     image: "./images/normal_house.webp", 
     dialogue:[ {text:"TWO WEEKS LATER", speaker:""},
-    {text: "We've had to visit and assess alot of homes this past two weeks, but this should be the last of the homes under the council that might qualify.", speaker:"Council Worker"}, 
+    {text: "We've had to visit and assess a lot of homes this past two weeks, but this should be the last of the homes under the council that might qualify.", speaker:"Council Worker"}, 
     {text: "Hopefully, this person will be more friendly than the last few.", speaker:"Unnamed Independent Assessor"}, 
     {text: "That shouldn't be an issue, they chose to have us come by while they weren't home.", speaker:"Council Worker"},
     {text: "That's a good thing too, they didn't seem too receptive when I contacted them.", speaker:"Council Worker"}, 
@@ -187,9 +187,9 @@ const scenes={
     {text: "Include Ventilation?", speaker:"", choices:[{text:"Yes Improve Ventilation", action:"ventYes"}, {text:"Leave Ventilation As Is", action:"nothing"}, {text:"Learn More",action:"ventMore", stay:true}]},
     {text: "What about upgrading the heating?", speaker:"", choices:[{text:"Let's do some heating upgrades", action:"nothing"}, {text:"Leave the Heating",next:"quiz"}, {text:"Learn More",action:"heatMore", stay:true}]},
     {text: "What heating upgrade should be done?", speaker:"", choices:[{text:"Air Source Heat Pumps", action:"airYes"}, {text:"Ground Source Heat Pumps", action:"groundYes"}, {text:"Connection To A Heat Network", action:"hnYes"}, {text:"Hybrid Heat Pump System", action:"hybYes"}, {text:"Learn More",action:"upgMore", stay:true}]},
-    {text: "Now that a plan has been made, Its time to submit a bid for funding to The Department for Energy Security and Net Zero (DESNZ).", speaker:""}, 
+    {text: "Now that a plan has been made, it's time to submit a bid for funding to The Department for Energy Security and Net Zero (DESNZ).", speaker:""}, 
     {text: "...I really hope we get enough funding to cover our entire plan.", speaker:"", choices:[{text:"Submit a Bid", action:"checkBid"}]}, 
-    {text: "Unfortunateley, we didn't get our total requested amount. But as the council we have an additional £50,000. Should we suppliment the grant?", speaker:"", choices:[{text:"Suppliment the Grant", action:"suppliment"}, {text:"Scrap The Project", action:"scrap"}]}, 
+    {text: "Unfortunately, we didn't get our total requested amount. But as the council we have an additional £50,000. Should we supplement the grant?", speaker:"", choices:[{text:"Supplement the Grant", action:"supplement"}, {text:"Scrap The Project", action:"scrap"}]}, 
     {text: "Now let's contact the tenant again to get consent to install these upgrades.", speaker:"", choices:[{text:"Call Tenant", next:"councilCall2"}]}],
     clickables:[{x:35, y:35, width:29, height:28, action:"computer brochure"} ]
   },
@@ -198,9 +198,9 @@ const scenes={
     dialogue:[ {text:"Hello council tenant, this is council worker calling from your local council as a follow up to our recent visit assessing your home.", speaker:"Council Worker"},
     {text: "Oh yes, Hello council worker", speaker:"Council Tenant"}, 
     {text: "After our visit to your home, we found your house had an EPC rating of D which means it is below the desired energy efficiency level.", speaker:"Council Worker"}, 
-    {text: "This means that your house hasnt been efficiently using energy, particulary with your heating.", speaker:"Council Worker"},
-    {text: "So you may have noticed its been hard to keep your home warmk, resulting in higher heating bills.", speaker:"Council Worker"}, 
-    {text: "Our plan would be to cover and facilitate some upgrades to your home to improve its energy efficiency. Would you consent to the upgrades being carried out council tenant? ", speaker:"Council Worker"}, 
+    {text: "This means that your house hasn't been efficiently using energy, particularly with your heating.", speaker:"Council Worker"},
+    {text: "So you may have noticed it's been hard to keep your home warm, resulting in higher heating bills.", speaker:"Council Worker"}, 
+    {text: "Our plan would be to cover and facilitate some upgrades to your home to improve its energy efficiency. Would you consent to the upgrades being carried out, council tenant?", speaker:"Council Worker"},
     {text: "Would I be paying for these upgrades?", speaker:"Council Tenant"},
     {text: "No, we would cover all the upgrades to progress towards the governmental policy goals.", speaker:"Council Worker"}, 
     {text: "However, the upgrade will be quite invasive and for a considerable span of time there will be many contractors needing access to your home.", speaker:"Council Worker"},
@@ -213,21 +213,21 @@ const scenes={
     image: "./images/vibrant_house.webp", 
     dialogue:[ {text:"ONE YEAR LATER", speaker:""},
     {text: "The upgrades took a long period of time, between locating qualified workers, relevant materials and aligning schedules for the upgrades.", speaker:""}, 
-    {text: "But now that they are complete, the council tennant family worry alot less about keeping the heating on."}, 
+    {text: "But now that they are complete, the council tenant family worry a lot less about keeping the heating on."}, 
     {text: "Nearly all the other properties managed by the local council had successful upgrades as well."}, 
-    {text: "And now the environment, wildlife and future genrations are better for it....", speaker:""}, 
+    {text: "And now the environment, wildlife and future generations are better for it....", speaker:""}, 
     {text: ":) Thank You for Playing! :)", speaker:"", choices:[{text:"Replay", action:"replay"}]}]
   },
   badEnd:{
     image: "./images/gloomy_house.webp", 
     dialogue:[ {text:"FIVE MONTHS LATER", speaker:""},
-    {text: "The local councils decarbonisation efforts were met with obstacles at every turn.", speaker:""}, 
-    {text: "Of their many council homes, they were only able to carry out succesful retrofitting for approximately 5% of them.", speaker:""}, 
+    {text: "The local council's decarbonisation efforts were met with obstacles at every turn.", speaker:""}, 
+    {text: "Of their many council homes, they were only able to carry out successful retrofitting for approximately 5% of them.", speaker:""}, 
     {text: "And now the environment is suffering.", speaker:""},
-    {text:"When trying to impliment decarbonication strategies, there are many obstacles that can be faced.",choices:[{text:"choice1", action:"tbd2"}, {text:"choice2", action:"tbd"}]},
+    {text:"When trying to implement decarbonisation strategies, there are many obstacles that can be faced.",choices:[{text:"choice1", action:"tbd2"}, {text:"choice2", action:"tbd"}]}
     {text: "There are unreceptive tenants, budget limitations, material scarcity and shortages in trained professionals."},
     {text: "This game offered a small scale perspective of the process of decarbonising social housing.", speaker:""},
-    {text: "However, with UK Social Housing contributing approximately 10% of the UK residential sector's total carbon emmissions, the decarbonisation of social housing can not be ignored", speaker:""}, 
+    {text: "However, with UK Social Housing contributing approximately 10% of the UK residential sector's total carbon emissions, the decarbonisation of social housing cannot be ignored", speaker:""}, 
     {text: "GAME OVER", speaker:"", choices:[{text:"Replay", action:"replay"}]}]
   }
 };
@@ -319,13 +319,13 @@ function ChooseAction(action){
   if(action === "fabricMore"){Popup("About 'Fabric First' Approach","The 'fabric first' method refers to the approach of first upgrading the 'envelope' of a building for thermal efficiency before heating upgrades.")}
   if(action === "loftYes"){ApplyUpgrade("Loft insulation")}
   if(action === "loftMore"){Popup("About Loft Insulation",
-    "This adds a barrier to reduce heat transfer from the roof/attic. The most common material for lof insulation in UK council housing is mineral wool. Other alternatives are: foam boards, fibre glass and natural fibres. The UK's regulations have a recommended minimum thickness of 27cm of mineral wool. Depending on the method this is a simple process.")}
+    "This adds a barrier to reduce heat transfer from the roof/attic. The most common material for loft insulation in UK council housing is mineral wool. Other alternatives are: foam boards, fibreglass and natural fibres. The UK's regulations have a recommended minimum thickness of 27cm of mineral wool. Depending on the method this is a simple process.")}
   if(action === "floorYes"){ApplyUpgrade("Floor insulation")}
   if(action === "floorMore"){Popup("About Floor Insulation",
-    "This involves adding insulating materials under/inside the structure of the reduce draughts and heat loss. Common materials for this purpose are mineral wool and rigid foam.")}
+    "This involves adding insulating materials under/inside the structure to reduce draughts and heat loss. Common materials for this purpose are mineral wool and rigid foam.")}
   if(action === "cwYes"){ApplyUpgrade("Cavity wall insulation")}
   if(action === "cwMore"){Popup("About Cavity Wall Insulation",
-    "This type of insulation involves filling(normally through injection) the gap between the inner and outer wall layers with insulation material. Common materials used are: mineral wool, polystyrene beads and expanding foam. Some walls are completely solid, and therfore incompatible with this type of upgrade.")}
+    "This type of insulation involves filling (normally through injection) the gap between the inner and outer wall layers with insulation material. Common materials used are: mineral wool, polystyrene beads and expanding foam. Some walls are completely solid, and therefore incompatible with this type of upgrade.")}
   if(action === "atYes"){ApplyUpgrade("Air tightness")}
   if(action === "atMore"){Popup("About Air Tightness",
     "This upgrade has to do with reducing uncontrolled air leakage and draughts. This is done via double-glazing and gap/crack sealing upgrades to windows, doors, pipes/cables and hatches.")}
@@ -371,7 +371,7 @@ function DoClickable(action){
     Popup("The Floors","Did you know depending on the flooring up to 20% of heat loss can be due to flooring! This is particularly true for homes built before 1980 with suspended timber floors.");}
   if(action === "wall"){
     Popup("Walls With Cavities",
-      "Did you know wall's with cavities in an uninsulated home accounts for 30% of heat loss! If a home was built after the 1920's it is likely to have a cavity with no insulation whilst those after the 1990's likely have already been insulated. Another trick to tell if a wall is a cavity wall is usinf a lengthways brick pattern as an indicator.");}
+      "Did you know walls with cavities in an uninsulated home account for 30% of heat loss! If a home was built after the 1920s it is likely to have a cavity with no insulation whilst those after the 1990s likely have already been insulated. Another trick to tell if a wall is a cavity wall is using a lengthways brick pattern as an indicator.");}
   if(action === "window"){
     Popup("The Windows","Did you know poorly insulated windows can account for 10-30% of the total heating loss in a home! ");}
   if(action == "computer brochure"){window.open("government policy temp", "_blank");}
