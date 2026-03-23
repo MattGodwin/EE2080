@@ -270,6 +270,10 @@ function ShowChoices(choices){
 }
 
 function CheckChoiceType(choice){
+  if(choice.next === "quiz"){
+    window.location.href = "quiz.html";
+    return;
+  }
   if(choice.next){
     ChangeScene(choice.next);
     return;
@@ -408,4 +412,3 @@ function StartGame(){
   document.getElementById("game").style.display ="block";
   ChangeScene("councilHome1");
 }
-
