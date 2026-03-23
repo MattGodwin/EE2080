@@ -1,40 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
-    <title>EE2080 Group 1</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UK Social Housing Decarbonistion Story Game</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-    <a href="index.html">
-        <h2>EE2080 Group 1</h2>
-    </a>
+<!-- Start Screen -->
+<div id="startScreen">
 
-    <h1>Carbon Impact Social Housing</h1>
+    <h1 id="gameName">DECARBONISING UK SOCIAL HOUSING</h1>
 
-    <p>placeholder introduction sentence goes here with info about the game</p>
-
-    <div>
-        <button onclick="location.href='web/index.html'">Play</button>
+    <p class="gameDescription">
+        This game takes you through the story of decarbonisng a UK council house, from the perspective of both the tennant and a council worker. 
+        It will serve as an educational tool for ages 10+ to examine the process and challenges 
+        faced when attempting to decarbonise social housing in the Uited Kingdom.
+    </p>
+    <div class="buttonContainer">
+    <button class="startButton" onclick="StartGame()">Start</button>
     </div>
 
-    <footer>
-        <p>Copyright &copy; 2026 EE2080 Group 1. All rights reserved.</p>
-    </footer>
+</div>
+
+
+<!-- Game Scenes Screen -->
+<div id="game" style="display:none;">
+
+    <div id="scenery">
+      <div id="councilBudget">Council Budget: £100000</div>
+      <div id="houseBudget">Household Budget: £1000</div>
+       <div id="clickable"></div>
+    </div>
+        <div id="ui">
+
+        <div id="dialogueBox">
+          <span id= "speaker"></span>
+          <p id="dialogue"></p>
+        </div>
+
+        <button class="nextButton" onclick="ChangeDialogue()">Next</button>
+
+        <div id="choices"></div>
+
+    </div>
+
+</div>
+<div id="popupBG"class="popup">
+  <div class="popupBox">
+    <h3 id="popupTitle"></h3>
+    <p id="popupContent"></p>
+    <button onclick="ClosePopup()">Continue</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+
 </body>
+
 </html>
-
-
-  outsideHome:{
-    image: "./images/normal_house.webp", 
-    dialogue:[ {text:"TWO WEEKS LATER", speaker:""},
-    {text: "We've had to visit and assess alot of homes this past two weeks, but this should be the last of the homes under the council that might qualify.", speaker:"Council Worker"}, 
-    {text: "Hopefully, this person will be more friendly than the last few.", speaker:"Unnamed Independent Assessor"}, 
-    {text: "That shouldn't be an issue. They chose to have us come by while they weren't home.", speaker:"Council Worker"},
-    {text: "That's a good thing too, they didn't seem too receptive when I contacted them.", speaker:"Council Worker"}, 
-    {text: "Once that assesment has been done, we can discuss more specifics and moving forward once you are comfortable.", speaker:"Council Worker"}, 
-    {text: "I dont know about all these changes, but if you come when noone is around and don't get in the way, I'll let you and your contractor come see the property", speaker:"Council Tenant",
-      choices:[{text:"Visit the property with an Independent Assessor", next:"councilHome2"}]}],
-    clickables:[{x:35, y:35, width:29, height:28, action:"computer brochure"} ]
-  }, 
