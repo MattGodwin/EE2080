@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Council Quiz – Decarbonising UK Social Housing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #1a0a02;
+      --surface:   #b8956e;
+      --card:      #f5ede3;
+      --border:    #a07850;
+      --green:     #69863a;
+      --green-dim: #2f3a1d;
+      --brown:     #4b2807;
+      --brown-lt:  #633a14;
+      --grey:      #8a7060;
+      --text:      #2a1a0a;
+      --text-dim:  #6b4c30;
+      --gold:      #7a4f1e;
+      --pass:      #2e7d4f;
+      --fail:      #c0392b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Source Serif 4', serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 780px;
+    }
+
+    /* HEADER */
+    .site-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .site-header .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .site-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      color: var(--green);
+      line-height: 1.2;
+    }
+
+    .site-header .subtitle {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* PROGRESS BAR */
+    .progress-wrap {
+      margin-bottom: 20px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .progress-track {
+      height: 6px;
+      background: var(--surface);
+      border-radius: 99px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green-dim), var(--green));
+      border-radius: 99px;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* QUESTION CARD */
+    .question-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 40px;
+      box-shadow: 0 8px 40px #00000066, inset 0 1px 0 #ffffff08;
+    }
+
+    .q-number {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .q-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      line-height: 1.55;
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+
+    /* ANSWER OPTIONS */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 520px) {
+      .options-grid { grid-template-columns: 1fr; }
+      .question-card { padding: 24px 20px; }
+    }
+
+    .option-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.95rem;
+      padding: 14px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: left;
+      line-height: 1.4;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: var(--green-dim);
+      border-color: var(--green);
+    }
+
+    .option-btn.correct {
+      border-color: var(--pass);
+      background: #1a3328;
+      color: #a8f0c8;
+    }
+
+    .option-btn.wrong {
+      border-color: var(--fail);
+      background: #2d1010;
+      color: #f0a8a8;
+    }
+
+    .option-btn:disabled { cursor: default; }
+
+    /* FEEDBACK */
+    .feedback {
+      margin-top: 20px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.correct { background: #1a3328; border-left: 3px solid var(--pass); color: #a8f0c8; }
+    .feedback.wrong   { background: #2d1010; border-left: 3px solid var(--fail); color: #f0a8a8; }
+
+    /* NEXT BUTTON */
+    .next-btn {
+      display: none;
+      margin-top: 24px;
+      padding: 13px 36px;
+      font-family: 'Source Serif 4', serif;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      border: none;
+      border-radius: 10px;
+      background: var(--green);
+      color: white;
+      cursor: pointer;
+      float: right;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .next-btn:hover { background: var(--green-dim); transform: translateY(-1px); }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* SCORE SCREEN */
+    #scoreScreen {
+      display: none;
+      text-align: center;
+    }
+
+    .score-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 50px 40px;
+      box-shadow: 0 8px 40px #00000066;
+    }
+
+    .score-badge {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      border: 3px solid;
+    }
+
+    .score-badge.pass { background: #1a3328; border-color: var(--pass); color: var(--pass); }
+    .score-badge.fail { background: #2d1010; border-color: var(--fail); color: var(--fail); }
+
+    .score-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      margin-bottom: 12px;
+    }
+
+    .score-title.pass { color: var(--pass); }
+    .score-title.fail { color: var(--fail); }
+
+    .score-msg {
+      color: var(--text-dim);
+      font-size: 1rem;
+      line-height: 1.65;
+      max-width: 480px;
+      margin: 0 auto 32px;
+      font-style: italic;
+    }
+
+    .score-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 13px 32px;
+      font-family: 'Source Serif 4', serif;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: var(--green);
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--green-dim); transform: translateY(-1px); }
+
+    .btn-secondary {
+      padding: 13px 32px;
+      font-family: 'Source Serif 4', serif;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--grey); color: var(--text); }
+
+    /* KEYFRAMES */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <header class="site-header">
+    <p class="eyebrow">GENERAL · Knowledge Check</p>
+    <h1>Decarbonising UK Social Housing</h1>
+    <p class="subtitle">Answer 24 out of 30 correctly to advance to the next chapter.</p>
+  </header>
+
+  <!-- QUIZ SECTION -->
+  <div id="quizSection">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span id="progressLabel">Question 1 of 30</span>
+        <span id="scoreLabel">Score: 0</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:10%"></div>
+      </div>
+    </div>
+
+    <div class="question-card" id="questionCard">
+      <p class="q-number" id="qNumber">Question 1</p>
+      <p class="q-text"  id="qText"></p>
+      <div class="options-grid" id="optionsGrid"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="clearfix">
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCORE SCREEN -->
+  <div id="scoreScreen">
+    <div class="score-card">
+      <div class="score-badge" id="scoreBadge"></div>
+      <h2 class="score-title" id="scoreTitle"></h2>
+      <p class="score-msg" id="scoreMsg"></p>
+      <div class="score-actions" id="scoreActions"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const questions = [
+    { q: "What gas is most responsible for human-caused climate change?", options: ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"], answer: 1, explanation: "Carbon dioxide (CO₂) is the primary greenhouse gas emitted by human activities, mainly from burning fossil fuels." },
+    { q: "What does 'net zero' mean?", options: ["No energy use at all", "Balancing emissions produced with emissions removed", "Only using solar power", "Banning all cars"], answer: 1, explanation: "Net zero means any greenhouse gases released are balanced by an equivalent amount being removed from the atmosphere." },
+    { q: "Which of these is a renewable energy source?", options: ["Coal", "Natural gas", "Wind", "Oil"], answer: 2, explanation: "Wind is a renewable energy source because it is naturally replenished and produces no direct carbon emissions." },
+    { q: "What does EPC stand for in the context of UK housing?", options: ["Energy Performance Certificate", "Electrical Panel Check", "Environmental Protection Code", "Energy Price Cap"], answer: 0, explanation: "An Energy Performance Certificate rates a building's energy efficiency from A (most efficient) to G (least efficient)." },
+    { q: "Approximately what percentage of UK homes are social housing?", options: ["5%", "17%", "35%", "50%"], answer: 1, explanation: "Around 17% of homes in the UK are social housing, owned by councils or housing associations." },
+    { q: "What is the main purpose of loft insulation?", options: ["To reduce noise", "To keep heat inside the home", "To prevent damp", "To improve Wi-Fi signal"], answer: 1, explanation: "Loft insulation reduces heat escaping through the roof, which can account for up to 25% of a home's heat loss." },
+    { q: "Which fuel do most UK homes currently use for heating?", options: ["Electricity", "Oil", "Natural gas", "Coal"], answer: 2, explanation: "Around 85% of UK homes use natural gas for central heating, making it the dominant domestic heating fuel." },
+    { q: "What does a heat pump do?", options: ["Burns gas to produce heat", "Moves heat from outside air into the home", "Cools the home like an air conditioner", "Generates electricity from heat"], answer: 1, explanation: "A heat pump extracts heat from the outdoor air (or ground) and transfers it inside — it doesn't burn fuel to create heat." },
+    { q: "What does CO₂ stand for?", options: ["Carbon monoxide", "Carbon dioxide", "Calcium oxide", "Copper oxide"], answer: 1, explanation: "CO₂ is the chemical formula for carbon dioxide, a key greenhouse gas produced when fossil fuels are burned." },
+    { q: "Which organisation is responsible for regulating social housing landlords in England?", options: ["The Housing Ombudsman", "The Regulator of Social Housing", "The Environment Agency", "Ofgem"], answer: 1, explanation: "The Regulator of Social Housing oversees the standards and conduct of social housing providers in England." },
+    { q: "What is cavity wall insulation?", options: ["Insulation fitted inside roof spaces", "Material injected into the gap between a home's inner and outer walls", "Foam applied to window frames", "Underground heating pipes"], answer: 1, explanation: "Many UK homes have a gap (cavity) between their inner and outer brick walls. Filling this gap with insulating material reduces heat loss." },
+    { q: "What year has the UK government set as its target for net zero emissions?", options: ["2030", "2040", "2050", "2070"], answer: 2, explanation: "The UK's Climate Change Act was amended in 2019 to set a legally binding target of net zero greenhouse gas emissions by 2050." },
+    { q: "What does 'retrofit' mean in housing?", options: ["Building a brand new house", "Adding energy improvements to an existing home", "Repainting the exterior", "Knocking down and rebuilding"], answer: 1, explanation: "Retrofitting means upgrading an existing building with new or improved features — such as insulation, heating, or glazing — to make it more energy efficient." },
+    { q: "Double glazing helps homes by...", options: ["Increasing natural light", "Reducing heat loss through windows", "Improving mobile phone signal", "Blocking UV rays only"], answer: 1, explanation: "Double glazing has two panes of glass with a gap between them, significantly reducing the amount of heat that escapes through windows." },
+    { q: "What is the name of the UK fund that helps social landlords improve the energy efficiency of their homes?", options: ["Help to Buy", "Right to Buy", "Social Housing Decarbonisation Fund", "Green New Deal"], answer: 2, explanation: "The Social Housing Decarbonisation Fund (SHDF) provides government funding to help social landlords upgrade the energy performance of their properties." },
+    { q: "Which of the following produces zero carbon emissions when generating electricity?", options: ["Gas power station", "Coal power station", "Solar panels", "Diesel generator"], answer: 2, explanation: "Solar panels generate electricity directly from sunlight with no carbon emissions during operation." },
+    { q: "What is fuel poverty?", options: ["Running out of petrol", "When a household cannot afford to heat their home adequately", "A tax on fossil fuels", "Overpaying for energy bills"], answer: 1, explanation: "Fuel poverty describes households that cannot afford to keep their home at a comfortable temperature, often due to low income and poor energy efficiency." },
+    { q: "What does the term 'carbon footprint' mean?", options: ["A measurement of how fast you walk", "The total greenhouse gas emissions caused by an individual or organisation", "The size of a factory", "How much coal a country uses"], answer: 1, explanation: "A carbon footprint is the total amount of greenhouse gases — expressed as CO₂ equivalent — produced by a person, organisation, event, or product." },
+    { q: "Which gas makes up the largest proportion of Earth's atmosphere?", options: ["Oxygen", "Carbon dioxide", "Nitrogen", "Argon"], answer: 2, explanation: "Nitrogen makes up approximately 78% of Earth's atmosphere, with oxygen at around 21%." },
+    { q: "What is the purpose of a smart meter in a home?", options: ["To control the television remotely", "To measure and display real-time energy usage", "To boost broadband speed", "To detect gas leaks"], answer: 1, explanation: "Smart meters record energy usage in real time and send readings automatically to energy suppliers, helping households track and manage their energy consumption." },
+    { q: "Which of these is an example of energy efficiency?", options: ["Leaving lights on all day", "Using LED bulbs instead of old incandescent ones", "Turning the heating up to maximum", "Opening windows in winter"], answer: 1, explanation: "LED bulbs use up to 90% less energy than old incandescent bulbs while producing the same amount of light." },
+    { q: "What does 'social housing' mean?", options: ["Housing owned by celebrities", "Rented homes provided by councils or housing associations at below-market rents", "Private rented accommodation", "Holiday homes"], answer: 1, explanation: "Social housing refers to rented accommodation provided by local councils or housing associations, typically at lower rents than the private market." },
+    { q: "What is the greenhouse effect?", options: ["Growing plants in a greenhouse", "The way certain gases trap heat in Earth's atmosphere", "A type of solar panel", "Air conditioning in large buildings"], answer: 1, explanation: "The greenhouse effect occurs when gases like CO₂ and methane trap heat from the sun in Earth's atmosphere, warming the planet." },
+    { q: "Which of the following best reduces draughts in an older home?", options: ["Painting the walls", "Draught-proofing around doors and windows", "Installing a new kitchen", "Adding a second staircase"], answer: 1, explanation: "Draught-proofing seals gaps around doors, windows, and floors to stop cold air entering and warm air escaping — one of the cheapest energy saving measures." },
+    { q: "What does 'decarbonise' mean?", options: ["Remove carbon fibre from cars", "Reduce or eliminate carbon dioxide emissions from an activity or sector", "Add carbon to soil", "Clean carbon deposits from an engine"], answer: 1, explanation: "Decarbonisation means reducing or eliminating the carbon dioxide emissions produced by a process, sector, or economy." },
+    { q: "What is a boiler upgrade scheme?", options: ["A programme to make boilers louder", "A government scheme offering grants to replace gas boilers with low-carbon heating", "A training course for plumbers", "A warranty extension programme"], answer: 1, explanation: "The UK's Boiler Upgrade Scheme offers homeowners grants to replace fossil fuel boilers with low-carbon alternatives like heat pumps." },
+    { q: "Which of these is NOT a greenhouse gas?", options: ["Methane", "Nitrous oxide", "Carbon dioxide", "Nitrogen"], answer: 3, explanation: "Nitrogen (N₂) makes up 78% of the atmosphere but is not a greenhouse gas. Methane, nitrous oxide, and CO₂ all trap heat." },
+    { q: "What is the main benefit of improving a home's EPC rating?", options: ["Higher property taxes", "Lower energy bills and reduced carbon emissions", "Larger council tax band", "Faster broadband"], answer: 1, explanation: "A higher EPC rating means the home is more energy efficient — this typically leads to lower energy bills for occupants and fewer carbon emissions." },
+    { q: "Which UK government department is primarily responsible for housing policy?", options: ["The Home Office", "The Department for Energy Security and Net Zero", "The Ministry of Housing, Communities and Local Government", "HM Treasury"], answer: 2, explanation: "The Ministry of Housing, Communities and Local Government (MHCLG) is the main government department responsible for housing policy in England." },
+    { q: "What is the Decent Homes Standard?", options: ["A rating system for new build homes only", "A minimum quality standard that social housing must meet", "A voluntary code for private landlords", "A certificate awarded to green buildings"], answer: 1, explanation: "The Decent Homes Standard sets out the minimum condition requirements for social housing, covering safety, repair, modern facilities, and thermal comfort." }
+  ];
+
+  let current = 0;
+  let score = 0;
+  let answered = false;
+  const PASS_SCORE = 24;
+
+  function loadQuestion() {
+    answered = false;
+    const q = questions[current];
+    document.getElementById("qNumber").textContent = `Question ${current + 1}`;
+    document.getElementById("qText").textContent = q.q;
+    document.getElementById("progressLabel").textContent = `Question ${current + 1} of ${questions.length}`;
+    document.getElementById("scoreLabel").textContent = `Score: ${score}`;
+    document.getElementById("progressFill").style.width = `${((current) / questions.length) * 100}%`;
+
+    const grid = document.getElementById("optionsGrid");
+    grid.innerHTML = "";
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = opt;
+      btn.onclick = () => selectAnswer(i);
+      grid.appendChild(btn);
+    });
+
+    const fb = document.getElementById("feedback");
+    fb.className = "feedback";
+    fb.textContent = "";
+
+    document.getElementById("nextBtn").style.display = "none";
+  }
+
+  function selectAnswer(index) {
+    if (answered) return;
+    answered = true;
+
+    const q = questions[current];
+    const btns = document.querySelectorAll(".option-btn");
+    btns.forEach(b => b.disabled = true);
+
+    const fb = document.getElementById("feedback");
+
+    if (index === q.answer) {
+      score++;
+      btns[index].classList.add("correct");
+      fb.className = "feedback correct show";
+      fb.innerHTML = `✓ Correct! ${q.explanation}`;
+    } else {
+      btns[index].classList.add("wrong");
+      btns[q.answer].classList.add("correct");
+      fb.className = "feedback wrong show";
+      fb.innerHTML = `✗ Not quite. ${q.explanation}`;
+    }
+
+    document.getElementById("scoreLabel").textContent = `Score: ${score}`;
+    document.getElementById("nextBtn").style.display = "block";
+  }
+
+  function nextQuestion() {
+    current++;
+    if (current < questions.length) {
+      loadQuestion();
+    } else {
+      showScore();
+    }
+  }
+
+  function showScore() {
+    document.getElementById("quizSection").style.display = "none";
+    const ss = document.getElementById("scoreScreen");
+    ss.style.display = "block";
+
+    const passed = score >= PASS_SCORE;
+    const badge  = document.getElementById("scoreBadge");
+    const title  = document.getElementById("scoreTitle");
+    const msg    = document.getElementById("scoreMsg");
+    const acts   = document.getElementById("scoreActions");
+
+    badge.textContent = `${score}/30`;
+    badge.className   = `score-badge ${passed ? "pass" : "fail"}`;
+    title.className   = `score-title ${passed ? "pass" : "fail"}`;
+
+    if (passed) {
+      title.textContent = "Chapter Complete!";
+      msg.textContent = `Great work — you scored ${score} out of 30. You have shown a solid understanding of decarbonising UK social housing. Proceed to the next chapter.`;
+      acts.innerHTML = `
+        <button class="btn-primary" onclick="alert('Next chapter coming soon!')">Continue to Next Chapter →</button>
+        <button class="btn-secondary" onclick="retakeQuiz()">Retake Quiz</button>`;
+    } else {
+      title.textContent = "Not Quite There Yet";
+      msg.textContent = `You scored ${score} out of 30. A score of 24 or more is required to advance. Review the material and try again!`;
+      acts.innerHTML = `<button class="btn-primary" onclick="retakeQuiz()">Retake Quiz ↺</button>`;
+    }
+  }
+
+  function retakeQuiz() {
+    current = 0;
+    score   = 0;
+    document.getElementById("scoreScreen").style.display = "none";
+    document.getElementById("quizSection").style.display = "block";
+    loadQuestion();
+  }
+
+  // Init
+  loadQuestion();
+</script>
+</body>
+</html>
