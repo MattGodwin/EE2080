@@ -56,7 +56,16 @@ const scenes={
     councilOffice1:{
     image: "./images/council_office.webp", 
     
-    dialogue:[ {text:"words 1",choices:[{text:"choice1", action:"tbd2"}, {text:"choice2", action:"tbd"}]},
+    dialogue:[ {text:"words 1",choices:[{text:"See Funding Options", action:"tbd2"}, {text:"choice2", action:"tbd"}]},
+    {text: "words 2"}, 
+    {text: "words 3"}, 
+    {text: "words 4", choices:[{text:"Return to council home", next:"councilHomeOut"}]}],
+    clickables:[{x:35, y:35, width:29, height:28, action:"computer brochure"} ]
+  },
+    councilOffice2:{
+    image: "./images/council_office.webp", 
+    
+    dialogue:[ {text:"We need more funding... Lets see what options we have.",choices:[{text:"choice1", action:"tbd2"}, {text:"choice2", action:"tbd"}]},
     {text: "words 2"}, 
     {text: "words 3"}, 
     {text: "words 4", choices:[{text:"Return to council home", next:"councilHomeOut"}]}],
@@ -66,7 +75,7 @@ const scenes={
     image: "./images/normal_house.webp", 
      dialogue:[ {text:"words 1",choices:[{text:"choice1", action:"tbd"}, {text:"choice2", action:"tbd"}]},
      {text: "words 2"}, {text: "words 3"}, 
-     {text: "words 4", choices:[{text:"Go to the council office", next:"councilOffice1"}]}],
+     {text: "words 4", choices:[{text:"Go to the council office", next:"councilOffice2"}]}],
     clickables:[{x:75, y:12, width:20, height:30, action:"to be added"}, {x:5, y:56, width:17, height:12, action:"something else"} ]
   }
 };
@@ -156,8 +165,8 @@ function DoClickable(action){
   if(action === "to be added"){
     Popup("PopUp","this would be your popup");
   }
-  if(action == "something else"){
-    Popup("Popup2","heres another popup");
+  if(action == "funding schemes "){
+    Popup("funding_schemes.html","_blank");
   }
   if(action == "computer brochure"){
     window.open("gov_policy.html", "_blank");
